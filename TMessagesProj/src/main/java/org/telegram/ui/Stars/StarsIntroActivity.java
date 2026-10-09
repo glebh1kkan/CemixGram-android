@@ -2939,26 +2939,6 @@ public class StarsIntroActivity extends GradientHeaderActivity implements Notifi
                 dismiss();
                 return;
             }
-                if (item.object instanceof TL_stars.TL_starsTopupOption) {
-                    Activity activity = AndroidUtilities.findActivity(getContext());
-                    if (activity == null) {
-                        activity = LaunchActivity.instance;
-                    }
-                    if (activity == null) {
-                        return;
-                    }
-                    StarsController.getInstance(currentAccount).buy(activity, (TL_stars.TL_starsTopupOption) item.object, (success, error) -> {
-                        if (getContext() == null) return;
-                        if (success) {
-                            BulletinFactory.of((FrameLayout) containerView, resourcesProvider).createSimpleBulletin(R.raw.stars_topup, getString(R.string.StarsAcquired), AndroidUtilities.replaceTags(formatPluralString("StarsAcquiredInfo", (int) item.longValue))).show();
-                            fireworksOverlay.start(true);
-                            StarsController.getInstance(currentAccount).invalidateTransactions(true);
-                        } else if (error != null) {
-                            BulletinFactory.of((FrameLayout) containerView, resourcesProvider).createSimpleBulletin(R.raw.error, LocaleController.formatString(R.string.UnknownErrorCode, error)).show();
-                        }
-                    }, purposePeer);
-                }
-            }
         }
 
         @Override
