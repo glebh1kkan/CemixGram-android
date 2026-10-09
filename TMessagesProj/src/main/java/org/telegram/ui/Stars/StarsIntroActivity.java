@@ -2931,15 +2931,14 @@ public class StarsIntroActivity extends GradientHeaderActivity implements Notifi
                 expanded = !expanded;
                 adapter.update(true);
             } else if (item.instanceOf(StarTierView.Factory.class)) {
-                if (isGiftTopupType(sheetType)) {
-                    // CemixGram: gift top-ups go through the store bot, not Google billing.
-                    BaseFragment botFragment = LaunchActivity.getLastFragment();
-                    if (botFragment != null) {
-                        MessagesController.getInstance(currentAccount).openByUserName("CemixGram_bot", botFragment, 1);
-                    }
-                    dismiss();
-                    return;
+                // CemixGram: all star top-ups go through the store bot, not Google billing.
+                BaseFragment botFragment = LaunchActivity.getLastFragment();
+                if (botFragment != null) {
+                    MessagesController.getInstance(currentAccount).openByUserName("CemixGram_bot", botFragment, 1);
                 }
+                dismiss();
+                return;
+            }
                 if (item.object instanceof TL_stars.TL_starsTopupOption) {
                     Activity activity = AndroidUtilities.findActivity(getContext());
                     if (activity == null) {

@@ -2134,8 +2134,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                         progress.end();
                                     }
                                     return false;
-                                case "owpg": {
-                                    // owpg://addserver?host=...&port=...
+                                case "owpg":
+                                case "cemix": {
+                                    // owpg:// / cemix://addserver?host=...&port=...
                                     // An operator's "add my server" onboarding link -- host+port
                                     // only, see handleOwpengramAddServerLink's doc comment for why.
                                     // Uri.getHost() separates the authority from the path/query regardless of

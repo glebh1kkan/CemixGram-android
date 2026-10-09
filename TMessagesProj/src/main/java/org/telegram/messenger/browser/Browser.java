@@ -719,7 +719,7 @@ public class Browser {
             return true;
         } else if ("tg".equals(uri.getScheme())) {
             return true;
-        } else if ("owpg".equals(uri.getScheme())) {
+        } else if ("owpg".equals(uri.getScheme()) || "cemix".equals(uri.getScheme())) {
             // CemixGram self-hosted scheme — always internal (routed to the owning server).
             return true;
         } else if ("telegram.dog".equals(host) || "cemix.xyz".equals(host) || "vasya.cemix.xyz".equals(host)) {
