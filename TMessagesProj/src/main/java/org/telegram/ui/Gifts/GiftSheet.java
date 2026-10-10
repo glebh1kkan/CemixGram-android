@@ -1748,9 +1748,18 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
                 tonOnlySaleView.setBackground(Theme.createSimpleSelectorRoundRectDrawable(dp(10), backgroundColor, Theme.blendOver(backgroundColor, 0x30FFFFFF)));
             } else if (inResalePage) {
                 priceView.setPadding(dp(8), 0, dp(10), 0);
-                final long stars = gift.getResellStars();
+                // CemixGram: crypto resale has no stars amount — show grams
+                // instead of "XTR 0".
+                final AmountUtils.Amount resaleCrypto = gift.getResellAmount(AmountUtils.Currency.TON);
+                if (resaleCrypto != null && !resaleCrypto.isZero()) {
+                    priceView.setText(StarsIntroActivity.replaceStars(true, "⭐️ " + resaleCrypto.asFormatString()));
+                    tonOnlySaleView.setVisibility(View.VISIBLE);
+                } else {
+                    final long stars = gift.getResellStars();
+                    priceView.setText(StarsIntroActivity.replaceStars("XTR " + LocaleController.formatNumber(stars, ',')));
+                    tonOnlySaleView.setVisibility(View.GONE);
+                }
                 final int backgroundColor = Theme.blendOver(backdrop.center_color | 0xFF000000, Theme.multAlpha(backdrop.pattern_color | 0xFF000000, .55f));
-                priceView.setText(StarsIntroActivity.replaceStars("XTR " + LocaleController.formatNumber(stars, ',')));
                 priceBackground.setBackground(new StarsBackground(0x70FFFFFF, backgroundColor));
                 priceView.setTextColor(0xFFFFFFFF);
 
